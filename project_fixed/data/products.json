@@ -1,0 +1,44 @@
+[
+  {
+    "product_id": "P001",
+    "name": "Máy tính xách tay ",
+    "unit_price": 1200.0,
+    "calculation_unit": "chiếc",
+    "category": "Thiết bị điện tử"
+  },
+  {
+    "product_id": "P002",
+    "name": "Bàn phím cơ",
+    "unit_price": 26.0,
+    "calculation_unit": "cái",
+    "category": "Phụ kiện"
+  },
+  {
+    "product_id": "P003",
+    "name": "Bộ giá đỡ máy tính",
+    "unit_price": 45.0,
+    "calculation_unit": "bộ",
+    "category": "Phụ kiện"
+  },
+  {
+    "product_id": "P004",
+    "name": "Bàn làm việc",
+    "unit_price": 151.0,
+    "calculation_unit": "cái",
+    "category": "Nội thất"
+  },
+  {
+    "product_id": "P005",
+    "name": "Hạt hướng dương",
+    "unit_price": 15.0,
+    "calculation_unit": "gói",
+    "category": "Thực phẩm"
+  },
+  {
+    "product_id": "P006",
+    "name": "Vở ghi ",
+    "unit_price": 4.0,
+    "calculation_unit": "quyển",
+    "category": "Văn phòng phẩm"
+  }
+]
