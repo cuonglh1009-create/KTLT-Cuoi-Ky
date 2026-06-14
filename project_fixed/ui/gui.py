@@ -652,6 +652,18 @@ class InvoiceAppGUI:
                                       state="readonly", font=("Cambria", 12))
         customer_combo["values"] = [c.display_name() for c in self.customer_manager.customers]
         customer_combo.grid(row=0, column=1, pady=5, padx=5)
+
+        # Ô nhập chiết khấu (%)
+        ttk.Label(info_frame, text="Chiết khấu (%):", font=("Cambria", 12)).grid(row=1, column=0, sticky="w", pady=5, padx=5)
+        discount_entry = tk.Entry(info_frame, width=10, font=("Cambria", 12))
+        discount_entry.insert(0, "0")
+        discount_entry.grid(row=1, column=1, sticky="w", pady=5, padx=5)
+
+        # Ô nhập VAT (%)
+        ttk.Label(info_frame, text="Thuế VAT (%):", font=("Cambria", 12)).grid(row=2, column=0, sticky="w", pady=5, padx=5)
+        vat_entry = tk.Entry(info_frame, width=10, font=("Cambria", 12))
+        vat_entry.insert(0, "10")
+        vat_entry.grid(row=2, column=1, sticky="w", pady=5, padx=5)
         
         # --- Phần mặt hàng ---
         items_container_frame = ttk.Frame(dialog)
@@ -751,7 +763,22 @@ class InvoiceAppGUI:
                 return
             
             try:
-                new_invoice, message = self.invoice_manager.create_invoice(customer_id=customer_id, customer_name=customer_name, items_data=current_items)
+                # Đọc VAT và chiết khấu từ ô nhập, chuyển từ % sang tỷ lệ (vd: 10% → 0.10)
+                try:
+                    vat_rate = float(vat_entry.get()) / 100
+                    discount_rate = float(discount_entry.get()) / 100
+                except ValueError:
+                    messagebox.showerror("Lỗi", "Thuế VAT và chiết khấu phải là số.")
+                    return
+                if not (0 <= vat_rate <= 1) or not (0 <= discount_rate <= 1):
+                    messagebox.showerror("Lỗi", "VAT và chiết khấu phải từ 0% đến 100%.")
+                    return
+                new_invoice, message = self.invoice_manager.create_invoice(
+                    customer_name=customer_name,
+                    items_data=current_items,
+                    vat_rate=vat_rate,
+                    discount_rate=discount_rate
+                )
                 if new_invoice:
                     messagebox.showinfo("Thành công", message)
                     self.load_invoices()
