@@ -55,14 +55,16 @@ def initialize_database():
 
         # Bảng hóa đơn (invoices)
         # `id` sẽ là khóa chính tự động tăng
-        cursor.execute("""
+       cursor.execute("""
         CREATE TABLE IF NOT EXISTS invoices (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            customer_id TEXT NOT NULL,
-            customer_name TEXT NOT NULL,
-            date TEXT NOT NULL,
-            FOREIGN KEY (customer_id) REFERENCES customers (customer_id)
-        );
+            id            INTEGER PRIMARY KEY AUTOINCREMENT,
+            customer_id   TEXT    NOT NULL,
+            customer_name TEXT    NOT NULL,
+            date          TEXT    NOT NULL,
+            vat_rate      REAL    NOT NULL DEFAULT 0.10,
+            discount_rate REAL    NOT NULL DEFAULT 0.0,
+            FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+        )
         """)
 
         # Bảng chi tiết hóa đơn (invoice_items)
